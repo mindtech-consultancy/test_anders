@@ -1,4 +1,4 @@
-﻿namespace Athlete.ML.Utility
+﻿namespace Athlete.DAL.Utility
 {
     public static class ApplicationSettings
     {

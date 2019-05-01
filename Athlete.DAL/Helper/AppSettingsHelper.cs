@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Athlete.ML.Services
+namespace Athlete.DAL.Helper
 {
-    public class ConnectionStringsModel
+    public class ConnectionStringsHelper
     {
         public string AthleteContextDatabase { get; set; }
     }

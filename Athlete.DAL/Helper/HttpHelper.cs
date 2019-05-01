@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace Athlete.ML.Services
+namespace Athlete.DAL.Helper
 {
     public class HttpHelper
     {

@@ -1,38 +1,24 @@
-﻿using Athlete.ML.Model;
+﻿using Athlete.DAL.Model;
 using Microsoft.EntityFrameworkCore;
-//using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Athlete.DAL.AthleteContext
 {
     public partial class AthleteServerContext : DbContext
     {
-        //public AthleteServerContext()
-        //{
-        //}
-            
         public AthleteServerContext(DbContextOptions<AthleteServerContext> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<TblAthleteTestAttendees> TblAthleteTestAttendees { get; set; }
-        public virtual DbSet<TblAthleteTestMaster> TblAthleteTestMaster { get; set; }
-        public virtual DbSet<TblTestType> TblTestType { get; set; }
-        public virtual DbSet<TblUserMaster> TblUserMaster { get; set; }
-        public virtual DbSet<TblUserType> TblUserType { get; set; }
-
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//        {
-//            if (!optionsBuilder.IsConfigured)
-//            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Server=server;Database=AthleteServer;User=sa;Password=sa2016");
-//            }
-//        }
+        public virtual DbSet<AthleteTestAttendeesModel> TblAthleteTestAttendees { get; set; }
+        public virtual DbSet<AthleteTestMasterModel> TblAthleteTestMaster { get; set; }
+        public virtual DbSet<TestTypeModel> TblTestType { get; set; }
+        public virtual DbSet<UserMasterModel> TblUserMaster { get; set; }
+        public virtual DbSet<UserTypeModel> TblUserType { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<TblAthleteTestAttendees>(entity =>
+            modelBuilder.Entity<AthleteTestAttendeesModel>(entity =>
             {
                 entity.ToTable("tblAthleteTestAttendees");
 
@@ -47,7 +33,7 @@ namespace Athlete.DAL.AthleteContext
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblAthleteTestMaster>(entity =>
+            modelBuilder.Entity<AthleteTestMasterModel>(entity =>
             {
                 entity.ToTable("tblAthleteTestMaster");
 
@@ -60,7 +46,7 @@ namespace Athlete.DAL.AthleteContext
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblTestType>(entity =>
+            modelBuilder.Entity<TestTypeModel>(entity =>
             {
                 entity.ToTable("tblTestType");
 
@@ -81,7 +67,7 @@ namespace Athlete.DAL.AthleteContext
                 entity.Property(e => e.UpdatedDate).HasColumnType("datetime");
             });
 
-            modelBuilder.Entity<TblUserMaster>(entity =>
+            modelBuilder.Entity<UserMasterModel>(entity =>
             {
                 entity.ToTable("tblUserMaster");
 
@@ -98,7 +84,7 @@ namespace Athlete.DAL.AthleteContext
                 entity.Property(e => e.Password).HasMaxLength(100);
             });
 
-            modelBuilder.Entity<TblUserType>(entity =>
+            modelBuilder.Entity<UserTypeModel>(entity =>
             {
                 entity.ToTable("tblUserType");
 

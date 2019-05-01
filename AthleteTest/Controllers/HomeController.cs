@@ -1,9 +1,9 @@
 ﻿using Athlete.BL;
 using Athlete.DAL.AthleteContext;
-using Athlete.ML.Model;
-using Athlete.ML.Services;
-using Athlete.ML.Utility;
-using Athlete.ML.ViewModel;
+using Athlete.DAL.Helper;
+using Athlete.DAL.Model;
+using Athlete.DAL.Utility;
+using Athlete.DAL.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,16 +15,22 @@ namespace AthleteTest.Controllers
 {
     public class HomeController : Controller
     {
+        #region Constaructor and Private Properties
+
         private readonly AthleteServerContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public HomeController(AthleteServerContext context, IOptions<ConnectionStringsModel> app, IHttpContextAccessor httpContextAccessor)
+        public HomeController(AthleteServerContext context, IOptions<ConnectionStringsHelper> app, IHttpContextAccessor httpContextAccessor)
         {
             _context = context;
             ApplicationSettings.ConnectionString = app.Value.AthleteContextDatabase;
             ApplicationSettings.AppBaseUrl = httpContextAccessor.HttpContext.Request.Scheme + "://" + httpContextAccessor.HttpContext.Request.Host + "/";
             _httpContextAccessor = httpContextAccessor;
         }
+
+        #endregion
+
+        #region Athlete Tests Methods
 
         public IActionResult Index()
         {
@@ -35,29 +41,28 @@ namespace AthleteTest.Controllers
 
         public PartialViewResult _AddEditTest(long Id)
         {
-            AthleteTestBL objAthleteTest = new AthleteTestBL(_context, _httpContextAccessor);
-            TblAthleteTestMaster objTest = objAthleteTest.GetTestDetails(Id);
+            AthleteTestBL athleteTestBL = new AthleteTestBL(_context, _httpContextAccessor);
+            AthleteTestMasterModel athleteTestMasterModel = athleteTestBL.GetTestDetails(Id);
 
 
             AthleteTestTypesBL objTestType = new AthleteTestTypesBL(_context, _httpContextAccessor);
-            List<TblTestType> lstTestTypess = objTestType.GetAllAthleteTestType();
-            if (objTest != null)
+            List<TestTypeModel> lstTestTypess = objTestType.GetAllAthleteTestType();
+            if (athleteTestMasterModel != null)
             {
-                ViewBag.lstTestType = new SelectList(lstTestTypess, "Id", "TestType", objTest.TestTypeId);
+                ViewBag.lstTestType = new SelectList(lstTestTypess, "Id", "TestType", athleteTestMasterModel.TestTypeId);
             }
             else
             {
-                objTest = new TblAthleteTestMaster();
+                athleteTestMasterModel = new AthleteTestMasterModel();
                 ViewBag.lstTestType = new SelectList(lstTestTypess, "Id", "TestType");
             }
-            return PartialView(objTest);
+            return PartialView(athleteTestMasterModel);
         }
 
-
-        public JsonResult SaveTest(TblAthleteTestMaster objTest)
+        public JsonResult SaveTest(AthleteTestMasterModel objTest)
         {
-            AthleteTestBL objAthleteTest = new AthleteTestBL(_context, _httpContextAccessor);
-            bool Status = objAthleteTest.SaveTestDetials(objTest);
+            AthleteTestBL athleteTestBL = new AthleteTestBL(_context, _httpContextAccessor);
+            bool Status = athleteTestBL.SaveTestDetials(objTest);
             return Json(Status);
         }
 
@@ -68,6 +73,9 @@ namespace AthleteTest.Controllers
             return Json(Status);
         }
 
+        #endregion
+
+        #region Athlete Tests Attendees Related Methods
 
         public IActionResult TestAttendees(long Id)
         {
@@ -80,17 +88,17 @@ namespace AthleteTest.Controllers
         public PartialViewResult _AddEditAttendee(long Id)
         {
             TestAttendeesBL objAttendees = new TestAttendeesBL(_context, _httpContextAccessor);
-            TblAthleteTestAttendees objAttendee = objAttendees.GetAttendeeDetails(Id);
+            AthleteTestAttendeesModel objAttendee = objAttendees.GetAttendeeDetails(Id);
 
-            List<TblUserMaster> lstUsers = objAttendees.GetAllUsers();
+            List<UserMasterModel> lstUsers = objAttendees.GetAllUsers();
             ViewBag.lstUsers = new SelectList(lstUsers, "Id", "UserName", objAttendee.UserId);
             return PartialView(objAttendee);
         }
 
-        public JsonResult SaveAttendeeForTest(TblAthleteTestAttendees objAttendee)
+        public JsonResult SaveAttendeeForTest(AthleteTestAttendeesModel tblAthleteTestAttendees)
         {
             TestAttendeesBL objAttendeeBL = new TestAttendeesBL(_context, _httpContextAccessor);
-            bool Status = objAttendeeBL.SaveAttendeeDetrails(objAttendee);
+            bool Status = objAttendeeBL.SaveAttendeeDetrails(tblAthleteTestAttendees);
             return Json(Status);
         }
 
@@ -100,6 +108,8 @@ namespace AthleteTest.Controllers
             bool Status = objAttendeeBL.DeleteAttendeeDetails(Id);
             return Json(Status);
         }
+
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

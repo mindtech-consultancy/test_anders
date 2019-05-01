@@ -1,9 +1,6 @@
 ﻿using Athlete.DAL.AthleteContext;
-using Athlete.ML.Model;
-using Athlete.ML.Services;
-using Athlete.ML.Utility;
+using Athlete.DAL.Model;
 using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -20,13 +17,13 @@ namespace Athlete.BL
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public List<TblTestType> GetAllAthleteTestType()
+        public List<TestTypeModel> GetAllAthleteTestType()
         {
-            List<TblTestType> lstTestTypes = new List<TblTestType>();
-            lstTestTypes = _context.TblTestType.Where(a => a.IsActive).ToList();
-            return lstTestTypes;
+            //List<TblTestType> lstTestTypes = new List<TblTestType>();
+            return _context.TblTestType.Where(a => a.IsActive).ToList();
+            // return lstTestTypes;
         }
 
-        
+
     }
 }

@@ -1,4 +1,4 @@
-namespace Athlete.ML.ViewModel
+namespace Athlete.DAL.ViewModel
 {
     public class ErrorViewModel
     {

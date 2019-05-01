@@ -1,8 +1,8 @@
 ﻿using Athlete.DAL.AthleteContext;
-using Athlete.ML.Model;
-using Athlete.ML.Services;
-using Athlete.ML.Utility;
-using Athlete.ML.ViewModel;
+using Athlete.DAL.Model;
+using Athlete.DAL.Utility;
+using Athlete.DAL.ViewModel;
+using Athlete.DAL.Helper;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -13,6 +13,7 @@ namespace Athlete.BL
 {
     public class AthleteTestBL
     {
+
         private readonly AthleteServerContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -55,11 +56,11 @@ namespace Athlete.BL
             return lstTests;
         }
 
-        public bool SaveTestDetials(TblAthleteTestMaster tblAthleteTestMaster)
+        public bool SaveTestDetials(AthleteTestMasterModel tblAthleteTestMaster)
         {
             if (tblAthleteTestMaster.Id > 0)
             {
-                TblAthleteTestMaster obj = _context.TblAthleteTestMaster.Find(tblAthleteTestMaster.Id);
+                AthleteTestMasterModel obj = _context.TblAthleteTestMaster.Find(tblAthleteTestMaster.Id);
                 obj.TestTypeId = tblAthleteTestMaster.TestTypeId;
                 obj.TestDate = tblAthleteTestMaster.TestDate;
                 obj.UpdatedBy = Convert.ToInt64(HttpHelper.GetSessionString(Constants.SessionUserId));
@@ -78,16 +79,16 @@ namespace Athlete.BL
 
         public bool DeleteTestDetails(long id)
         {
-            TblAthleteTestMaster objTest = new TblAthleteTestMaster();
+            AthleteTestMasterModel objTest = new AthleteTestMasterModel();
             objTest = _context.TblAthleteTestMaster.Find(id);
             _context.TblAthleteTestMaster.Remove(objTest);
             _context.SaveChanges();
             return true;
         }
 
-        public TblAthleteTestMaster GetTestDetails(long id)
+        public AthleteTestMasterModel GetTestDetails(long id)
         {
-            TblAthleteTestMaster objTest = new TblAthleteTestMaster();
+            AthleteTestMasterModel objTest = new AthleteTestMasterModel();
             if (_context.TblAthleteTestMaster.Find(id) != null)
             {
                 objTest = _context.TblAthleteTestMaster.Find(id);

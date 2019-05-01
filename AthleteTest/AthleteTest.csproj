@@ -18,7 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Athlete.BL\Athlete.BL.csproj" />
     <ProjectReference Include="..\Athlete.DAL\Athlete.DAL.csproj" />
-    <ProjectReference Include="..\Athlete.ML\Athlete.ML.csproj" />
   </ItemGroup>
 
   <ItemGroup>

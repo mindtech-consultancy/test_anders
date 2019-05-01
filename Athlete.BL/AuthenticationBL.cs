@@ -1,6 +1,6 @@
 ﻿using Athlete.DAL.AthleteContext;
-using Athlete.ML.Model;
-using Athlete.ML.Utility;
+using Athlete.DAL.Model;
+using Athlete.DAL.Utility;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
@@ -20,7 +20,7 @@ namespace Athlete.BL
         }
         public bool AuthenticateUser(string userName, string password)
         {
-            TblUserMaster objUserMaster = _context.TblUserMaster.Where(a => a.UserName == userName && a.Password == password).FirstOrDefault();
+            UserMasterModel objUserMaster = _context.TblUserMaster.Where(a => a.UserName == userName && a.Password == password).FirstOrDefault();
             if (objUserMaster != null)
             {
                 SessionExtensions.SetString(_httpContextAccessor.HttpContext.Session, Constants.SessionUserSessions, JsonConvert.SerializeObject(objUserMaster));

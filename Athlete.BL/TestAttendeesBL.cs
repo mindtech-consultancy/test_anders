@@ -1,8 +1,8 @@
 ﻿using Athlete.DAL.AthleteContext;
-using Athlete.ML.Model;
-using Athlete.ML.Services;
-using Athlete.ML.Utility;
-using Athlete.ML.ViewModel;
+using Athlete.DAL.Model;
+using Athlete.DAL.Utility;
+using Athlete.DAL.ViewModel;
+using Athlete.DAL.Helper;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -54,11 +54,11 @@ namespace Athlete.BL
             return lstAttendees;
         }
 
-        public bool SaveAttendeeDetrails(TblAthleteTestAttendees objAttendee)
+        public bool SaveAttendeeDetrails(AthleteTestAttendeesModel objAttendee)
         {
             if (objAttendee.Id > 0)
             {
-                TblAthleteTestAttendees obj = _context.TblAthleteTestAttendees.Find(objAttendee.Id);
+                AthleteTestAttendeesModel obj = _context.TblAthleteTestAttendees.Find(objAttendee.Id);
                 obj.UserId = objAttendee.UserId;
                 obj.TestAttributeValue = objAttendee.TestAttributeValue;
                 obj.UpdatedBy = Convert.ToInt64(HttpHelper.GetSessionString(Constants.SessionUserId));
@@ -75,14 +75,14 @@ namespace Athlete.BL
             return true;
         }
 
-        public List<TblUserMaster> GetAllUsers()
+        public List<UserMasterModel> GetAllUsers()
         {
             return _context.TblUserMaster.Where(a => a.UserTypeId == 3).ToList();
         }
 
-        public TblAthleteTestAttendees GetAttendeeDetails(long id)
+        public AthleteTestAttendeesModel GetAttendeeDetails(long id)
         {
-            TblAthleteTestAttendees objAttendee = new TblAthleteTestAttendees();
+            AthleteTestAttendeesModel objAttendee = new AthleteTestAttendeesModel();
             if (_context.TblAthleteTestAttendees.Find(id) != null)
             {
                 objAttendee = _context.TblAthleteTestAttendees.Find(id);
@@ -92,7 +92,7 @@ namespace Athlete.BL
 
         public bool DeleteAttendeeDetails(long id)
         {
-            TblAthleteTestAttendees objAttendee = new TblAthleteTestAttendees();
+            AthleteTestAttendeesModel objAttendee = new AthleteTestAttendeesModel();
             objAttendee = _context.TblAthleteTestAttendees.Find(id);
             _context.TblAthleteTestAttendees.Remove(objAttendee);
             _context.SaveChanges();

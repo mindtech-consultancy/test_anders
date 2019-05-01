@@ -1,5 +1,5 @@
 ﻿using Athlete.DAL.AthleteContext;
-using Athlete.ML.Services;
+using Athlete.DAL.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +29,7 @@ namespace AthleteTest
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-            services.Configure<ConnectionStringsModel>(Configuration.GetSection("ConnectionStrings"));
+            services.Configure<ConnectionStringsHelper>(Configuration.GetSection("ConnectionStrings"));
             services.AddOptions();
             //services.AddDbContextPool<AthleteServerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AthleteContextDatabase")));
             services.AddDbContextPool<AthleteServerContext>(options => options.UseSqlServer(Configuration.GetConnectionString("AthleteContextDatabase")));

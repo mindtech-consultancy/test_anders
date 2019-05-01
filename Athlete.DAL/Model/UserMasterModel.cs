@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Athlete.ML.Model
+namespace Athlete.DAL.Model
 {
-    public partial class TblUserMaster
+    public partial class UserMasterModel
     {
         public long Id { get; set; }
         public string UserName { get; set; }

@@ -1,6 +1,6 @@
 ﻿using Athlete.BL;
 using Athlete.DAL.AthleteContext;
-using Athlete.ML.Utility;
+using Athlete.DAL.Utility;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

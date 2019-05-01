@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Athlete.ML.Model
+namespace Athlete.DAL.Model
 {
-    public partial class TblUserType
+    public partial class UserTypeModel
     {
         public long Id { get; set; }
         public string UserType { get; set; }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Athlete.ML.Utility
+﻿namespace Athlete.DAL.Utility
 {
     public class Constants
     {
