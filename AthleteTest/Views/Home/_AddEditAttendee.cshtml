@@ -1,0 +1,42 @@
+﻿@model Athlete.ML.Model.TblAthleteTestAttendees
+<div style="max-width:1200px;" class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Attendee Detail</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="fa fa-close"></i></button>
+        </div>
+        <div class="modal-body p-4">
+            <div class="clearfix">
+                <div class="row">
+                    <form id="frmAttendee">
+                        <input type="hidden" id="hdnTestId" value="@Model.AthleteTestId" asp-for="AthleteTestId" />
+                        <input type="hidden" id="hdnAttendeId" value="@Model.Id" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="control-label">Attendee <span class="text-danger">*</span></label>
+                            <select asp-for="UserId" class="form-control " required asp-items="(SelectList)ViewBag.lstUsers">
+                                <option selected value="">--- Select Attendee ---</option>
+                            </select>
+                            @Html.ValidationMessageFor(m => m.UserId, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Distance <span class="text-danger">*</span></label>
+                            <input asp-for="TestAttributeValue" required class="form-control" />
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <label id="lblValidation" class="text-danger" style="display:none;">* fields are required</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer text-left" id="dvButtons">
+            <a class="btn btn-info text-white" id="aSaveTest" name="aSaveTest" onclick="javascript:return SaveAttendeeForTestDetails();">Save</a>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+    <!-- /.modal-content -->
+</div>
+

@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Athlete.ML.ViewModel.TestAttendeeViewModel>
+
+@{
+    ViewData["Title"] = "TestAttendees";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test related Attendees</h2>
+
+<p>
+    <a onclick="OpenAttendeeModal();">Create New</a>
+    <input type="hidden" id="hdnTestId" value="@ViewBag.TestId" />
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Attendee
+            </th>
+            <th>
+                Distance
+            </th>
+            <th>Fiteness Rating</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestAttributeValue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FitenessRating)
+                </td>
+                <td>
+                    <a onclick="OpenAttendeeModal(@item.Id);">Edit</a> |
+                    <a onclick="DeleteAttendeeDetails(@item.Id);">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a id="btnBack" href="/Home/Index">Back</a>
+@section Scripts{
+    <script src="~/AthleteScript/TestAttendees.js"></script>
+}

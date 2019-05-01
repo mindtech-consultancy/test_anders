@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
+}
+
+<h2>Login</h2>
+<label>User Name</label>
+<input type="text" id="txtUserName" name="txtUserName" />
+
+<label>Password</label>
+<input type="password" id="txtPassword" name="txtPassword" />
+
+<a id="lbtnLogin" class="btn-info" onclick="CheckAuthentication();">Login</a>
+@section Scripts{
+    <script src="~/AthleteScript/Login.js"></script>
+}
